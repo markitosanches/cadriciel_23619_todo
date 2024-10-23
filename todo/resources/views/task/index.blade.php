@@ -15,7 +15,7 @@
                     <ul class="list-unstyled">
                         <li><strong>Completed: </strong> {{ $task->completed ? "Yes" : "No"}}</li>
                         <li><strong>Due Date: </strong>{{ $task->due_date}}</li>
-                        <li><strong>Author: </strong>{{ $task->user_id}}</li>
+                        <li><strong>Author: </strong>{{ $task->user->name}}</li>
                     </ul>
                 </div>
                 <div class="card-footer">
