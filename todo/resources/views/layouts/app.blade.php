@@ -21,16 +21,21 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{{ route('task.index')}}">Tasks</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">User</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
+                                aria-expanded="false">Users</a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ route('user.create')}}">New User</a></li>
+                                <li><a class="dropdown-item" href="{{ route('user.index')}}">Users List</a></li>
+                            </ul>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
                                 aria-expanded="false">Tasks</a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="{{ route('task.create')}}">New Task</a></li>
-                                <li><a class="dropdown-item" href="#">Completed</a></li>
-                                <li><a class="dropdown-item" href="#">Unfinished</a></li>
+                                <li><a class="dropdown-item" href="{{ route('task.completed', 1)}}">Completed</a></li>
+                                <li><a class="dropdown-item" href="{{ route('task.completed', 0)}}">Unfinished</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -44,6 +49,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="#">Login</a>
                             <a class="nav-link" href="#">Logout</a>
                         </li>
                     </ul>
