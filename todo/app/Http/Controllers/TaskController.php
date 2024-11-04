@@ -6,17 +6,25 @@ use App\Models\Task;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
+
+    // public function __construct(){
+    //     $this->middleware('auth');
+    // }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-       $tasks = Task::all();
+       //if(Auth::check()){
+            $tasks = Task::all();
+            return view('task.index', ['tasks'=>$tasks]);
+       //}
 
-       return view('task.index', ['tasks'=>$tasks]);
     }
 
     /**
@@ -34,7 +42,7 @@ class TaskController extends Controller
     {
 
         $request->validate([
-            'title' => 'required|string|max:255',
+           
             'description' => 'required',
             'completed' => 'nullable|boolean',
             'due_date' => 'nullable|date'
