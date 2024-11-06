@@ -7,15 +7,16 @@
             <div class="card">
                 <div class="card-header">
                     <h1 class="text-center">
-                        Welcome to ToDo List App
+                        @lang('lang.text_welcome_title')
                     </h1>
                 </div>
                 <div class="card-body">
-                    <p class="lead">This is a simple todo list application built with Laravel and Bootstrap.</p>
-                    <p>Get started by creating your first task!</p>
+                @lang('lang.text_welcome_paragraph')
+
+                {!!trans('lang.text_welcome_paragraph')!!}
                 </div>
                 <div class="card-footer text-center">
-                    <a href="{{route('task.index')}}" class="btn btn-primary">Go to ToDo List</a>
+                    <a href="{{route('task.index')}}" class="btn btn-primary">@lang('lang.text_go_todo')</a>
                 </div>
             </div>
         </div>

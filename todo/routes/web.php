@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SetLocaleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,5 +42,8 @@ Route::middleware('auth')->group(function(){
 Route::get('/login', [AuthController::class, 'create'])->name('login');
 Route::post('/login', [AuthController::class, 'store'])->name('login.store');
 Route::get('/logout', [AuthController::class, 'destroy'])->name('logout');
+
+Route::get('/lang/{locale}', [SetLocaleController::class, 'index'])->name('lang');
+
 
 
