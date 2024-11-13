@@ -29,6 +29,7 @@ Route::get('/edit/task/{task}', [TaskController::class, 'edit'])->name('task.edi
 Route::put('/edit/task/{task}', [TaskController::class, 'update'])->name('task.update');
 Route::delete('/task/{task}', [TaskController::class, 'destroy'])->name('task.destroy');
 Route::get('/completed/task/{completed}', [TaskController::class, 'completed'])->name('task.completed');
+Route::get('/pdf/task/{task}', [TaskController::class, 'pdf'])->name('task.pdf');
 
 Route::get('/query', [TaskController::class, 'query']);
 

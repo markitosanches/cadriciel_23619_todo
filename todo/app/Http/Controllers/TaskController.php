@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Dompdf\Dompdf;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class TaskController extends Controller
 {
@@ -32,7 +35,16 @@ class TaskController extends Controller
      */
     public function create()
     {
-        return view('task.create');
+        // $categories = new Category();
+        // $categories = $categories->categories();
+
+        $categories = Category::categories();
+
+        //return $categories;
+
+        //return view('task.create', ["categories" => $categories]);
+
+        return view('task.create', compact('categories'));
     }
 
     /**
@@ -42,18 +54,21 @@ class TaskController extends Controller
     {
 
         $request->validate([
-           
+            'title' => 'min:2|max:45',
             'description' => 'required',
             'completed' => 'nullable|boolean',
-            'due_date' => 'nullable|date'
+            'due_date' => 'nullable|date',
+            'category_id' => 'required'
         ]);
         //return redirect->back()->withErrros()->inputs()
+
         $task = Task::create([
             'title' => $request->title,
             'description' => $request->description,
             'completed' => $request->input('completed', false),
             'due_date' => $request->due_date,
-            'user_id' => 1
+            'category_id' => $request->category_id,
+            'user_id' => Auth::user()->id,
         ]); 
 
         //return $task; 
@@ -77,7 +92,8 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        return view('task.edit', ['task'=>$task]);
+        $categories = Category::categories();
+        return view('task.edit', compact('task', 'categories'));
     }
 
     /**
@@ -90,13 +106,15 @@ class TaskController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required',
             'completed' => 'nullable|boolean',
-            'due_date' => 'nullable|date'
+            'due_date' => 'nullable|date',
+            'category_id' => 'required'
         ]);
         $task->update([
             'title' => $request->title,
             'description' => $request->description,
             'completed' => $request->input('completed', false),
             'due_date' => $request->due_date,
+            'category_id' => $request->category_id,
         ]);
 
         return redirect()->route('task.show', $task->id)->withSuccess('Task updated with success!');
@@ -188,5 +206,18 @@ class TaskController extends Controller
         //SELECT count(*) as count_tasks, user_id FROM laravel_todo.tasks GROUP BY user_id;
 
         return $task;
+    }
+
+    public function pdf(Task $task){
+
+        $qrCode = QrCode::size(200)->generate(route('task.show', $task->id));
+
+        $pdf = new Dompdf();
+        $pdf->setPaper('letter', 'portrait');
+        $pdf->loadHtml(view('task.show-pdf', ["task" => $task, "qrCode"=> $qrCode]));
+        $pdf->render();
+        return $pdf->stream('task_'.$task->id.'.pdf');
+
+        //return view('task.show-pdf', compact('task'));
     }
 }

@@ -16,6 +16,7 @@
                         <li><strong>Completed: </strong> {{ $task->completed ? "Yes" : "No"}}</li>
                         <li><strong>Due Date: </strong>{{ $task->due_date}}</li>
                         <li><strong>Author: </strong>{{ $task->user->name}}</li>
+                        <li><strong>Category: </strong>{{ $task->category ? $task->category->category[app()->getLocale()] ?? $task->category->category['en'] : "" }}</li>
                     </ul>
                 </div>
                 <div class="card-footer">

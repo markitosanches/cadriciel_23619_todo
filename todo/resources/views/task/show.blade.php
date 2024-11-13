@@ -15,11 +15,14 @@
                         <li><strong>Completed: </strong> {{ $task->completed ? "Yes" : "No"}}</li>
                         <li><strong>Due Date: </strong>{{ $task->due_date}}</li>
                         <li><strong>Author: </strong>{{ $task->user->name}}</li>
+                        <li><strong>Category: </strong>{{ $task->category ? $task->category->category[app()->getLocale()] ?? $task->category->category['en'] : "" }}</li>
                     </ul>
                 </div>
                 <div class="card-footer">
                     <div class="d-flex justify-content-between">
                         <a href="{{route('task.edit', $task->id)}}" class="btn btn-sm btn-outline-success">Edit</a>
+                        <a href="{{route('task.pdf', $task->id)}}" class="btn btn-sm btn-outline-info">PDF</a>
+                        
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Delete

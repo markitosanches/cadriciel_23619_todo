@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Resources\CategoryResource;
+
 
 class CategoryController extends Controller
 {
@@ -22,15 +22,6 @@ class CategoryController extends Controller
      */
     public function create()
     {
-
-        $category = Category::select()->where('id', 2)->get();
-
-        //return $category;
-
-        $r = CategoryResource::collection($category);
-
-        return $r;
-
         return view('category.create');
     }
 
