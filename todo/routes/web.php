@@ -39,6 +39,12 @@ Route::middleware('auth')->group(function(){
     Route::post('/registration', [UserController::class, 'store'])->name('user.store');
 });
 
+Route::get('/password/forgot', [UserController::class, 'forgot'])->name('user.forgot');
+Route::post('/password/forgot', [UserController::class, 'email'])->name('user.email');
+Route::get('/password/reset/{user}/{token}', [UserController::class, 'reset'])->name('user.reset');
+Route::put('/password/reset/{user}/{token}', [UserController::class, 'resetUpdate'])->name('user.reset.update');
+
+
 Route::get('/create/category', [CategoryController::class, 'create'])->name('category.create');
 Route::post('/create/category', [CategoryController::class, 'store'])->name('category.store');
 
