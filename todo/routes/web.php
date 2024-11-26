@@ -35,7 +35,7 @@ Route::get('/query', [TaskController::class, 'query']);
 
 Route::middleware('auth')->group(function(){
     Route::get('/users', [UserController::class, 'index'])->name('user.index');
-    Route::get('/registration', [UserController::class, 'create'])->name('user.create');
+    Route::get('/registration', [UserController::class, 'create'])->name('user.create')->middleware('can:create-users');
     Route::post('/registration', [UserController::class, 'store'])->name('user.store');
 });
 

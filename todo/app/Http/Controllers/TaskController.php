@@ -125,6 +125,7 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
+        $this->authorize('delete-task');
         $task->delete();
         return redirect()->route('task.index')->withSuccess('Task '.$task->id.' deleted with success!');
     }
