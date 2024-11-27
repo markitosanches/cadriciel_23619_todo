@@ -58,6 +58,15 @@ onMounted(()=>{
     axios.get('/messages').then(response => {
         msg.value = response.data
     })
+
+    window.Echo.channel('chat').listen('MessageNotification', (response) => {
+        console.log(response);
+        msg.value.push({
+            message: response.message.message,
+            user: response.user
+        });
+         alert('Show without refresh!')
+    });
 })
 
 const msg = ref([]);

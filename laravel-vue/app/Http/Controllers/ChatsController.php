@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Message;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use App\Events\MessageNotification;
 
 class ChatsController extends Controller
 {
@@ -28,6 +29,7 @@ class ChatsController extends Controller
         $message = $user->messages()->create([
             'message' => $request->input('message')
         ]);
+        broadcast(new MessageNotification($user, $message))->toOthers();
         return Message::with('user')->get();
     }
 }
